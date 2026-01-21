@@ -1,0 +1,216 @@
+# PRISMA 2020 Checklist for Systematic Reviews and Meta-Analyses
+# Reference: Page MJ, McKenzie JE, Bossuyt PM, et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ 2021;372:n71
+
+name: PRISMA 2020
+version: "1.0"
+applicable_to:
+  - Systematic Review
+  - Meta-Analysis
+description: "Reporting checklist for systematic reviews and meta-analyses"
+
+items:
+  - item_id: PRISMA_1
+    item_number: "1"
+    category: Title
+    question: "Does the title identify the report as a systematic review?"
+    evaluation_criteria: "Title should contain terms like 'systematic review', 'meta-analysis', or similar identifying terminology."
+    evidence_location_hint: "title"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_2
+    item_number: "2"
+    category: Abstract
+    question: "Does the abstract provide a structured summary following PRISMA abstract format?"
+    evaluation_criteria: "Abstract should include: Background, Objectives, Data sources, Study eligibility criteria, Participants, Interventions, Assessment of risk of bias, Methods of synthesis, Results, Limitations, Conclusions, and Registration."
+    evidence_location_hint: "abstract"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_3
+    item_number: "3"
+    category: Introduction - Rationale
+    question: "Is the rationale for the review described in the context of existing knowledge?"
+    evaluation_criteria: "Should describe why the review is needed and what knowledge gap it addresses."
+    evidence_location_hint: "introduction"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_4
+    item_number: "4"
+    category: Introduction - Objectives
+    question: "Are the objectives stated clearly with PICO/PECO elements?"
+    evaluation_criteria: "Should specify Population, Intervention/Exposure, Comparator, and Outcomes (PICO/PECO)."
+    evidence_location_hint: "introduction"
+    severity_if_missing: CRITICAL
+
+  - item_id: PRISMA_5
+    item_number: "5"
+    category: Methods - Eligibility Criteria
+    question: "Are eligibility criteria specified with justification?"
+    evaluation_criteria: "Should state inclusion/exclusion criteria for studies, participants, interventions, comparators, outcomes, and study designs."
+    evidence_location_hint: "methods.eligibility"
+    severity_if_missing: CRITICAL
+
+  - item_id: PRISMA_6
+    item_number: "6"
+    category: Methods - Information Sources
+    question: "Are all information sources specified with dates?"
+    evaluation_criteria: "Should list databases, registers, websites, organizations searched, and date of last search."
+    evidence_location_hint: "methods"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_7
+    item_number: "7"
+    category: Methods - Search Strategy
+    question: "Is the full search strategy for at least one database presented?"
+    evaluation_criteria: "Should provide full search strategy for at least one major database, including limits and filters used."
+    evidence_location_hint: "methods"
+    severity_if_missing: CRITICAL
+
+  - item_id: PRISMA_8
+    item_number: "8"
+    category: Methods - Selection Process
+    question: "Is the study selection process described?"
+    evaluation_criteria: "Should describe how many reviewers screened each record, how conflicts were resolved, and any automation tools used."
+    evidence_location_hint: "methods"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_9
+    item_number: "9"
+    category: Methods - Data Collection
+    question: "Are data collection methods and processes described?"
+    evaluation_criteria: "Should describe how data were extracted, how many reviewers extracted data, conflict resolution methods, and any automation tools."
+    evidence_location_hint: "methods"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_10a
+    item_number: "10a"
+    category: Methods - Risk of Bias
+    question: "Are methods for assessing risk of bias specified?"
+    evaluation_criteria: "Should specify the tool(s) used to assess risk of bias (e.g., RoB 2, ROBINS-I)."
+    evidence_location_hint: "methods"
+    severity_if_missing: CRITICAL
+
+  - item_id: PRISMA_10b
+    item_number: "10b"
+    question: "Are methods for judging overall risk of bias described?"
+    evaluation_criteria: "Should describe how judgments about risk of bias will be used in data synthesis."
+    evidence_location_hint: "methods"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_11
+    item_number: "11"
+    category: Methods - Effect Measures
+    question: "Are effect measures clearly specified?"
+    evaluation_criteria: "Should specify the effect measure(s) used (e.g., risk ratio, mean difference, standardized mean difference)."
+    evidence_location_hint: "methods.statistics"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_12
+    item_number: "12"
+    category: Methods - Synthesis
+    question: "Are methods for synthesis described?"
+    evaluation_criteria: "Should describe statistical methods, models used, methods for identifying/handling heterogeneity, and sensitivity analyses."
+    evidence_location_hint: "methods.statistics"
+    severity_if_missing: CRITICAL
+
+  - item_id: PRISMA_13a
+    item_number: "13a"
+    category: Methods - Registration
+    question: "Is the review registered with registration number provided?"
+    evaluation_criteria: "Should provide registration number and registry name (e.g., PROSPERO)."
+    evidence_location_hint: "methods"
+    severity_if_missing: CRITICAL
+
+  - item_id: PRISMA_13b
+    item_number: "13b"
+    question: "Are deviations from the protocol reported?"
+    evaluation_criteria: "Should indicate where protocol can be accessed and describe any amendments."
+    evidence_location_hint: "methods"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_14
+    item_number: "14"
+    category: Results - Study Selection
+    question: "Is the study selection process presented with a flow diagram?"
+    evaluation_criteria: "Should provide a PRISMA flow diagram showing studies at each stage (identification, screening, eligibility, included)."
+    evidence_location_hint: "results"
+    severity_if_missing: CRITICAL
+
+  - item_id: PRISMA_15
+    item_number: "15"
+    category: Results - Study Characteristics
+    question: "Are characteristics of included studies presented?"
+    evaluation_criteria: "Should cite each included study and present characteristics (e.g., PICO, follow-up, sample size)."
+    evidence_location_hint: "results"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_16
+    item_number: "16"
+    category: Results - Risk of Bias
+    question: "Are risk of bias assessments presented?"
+    evaluation_criteria: "Should present assessments for each study and describe any overall patterns."
+    evidence_location_hint: "results"
+    severity_if_missing: CRITICAL
+
+  - item_id: PRISMA_17
+    item_number: "17"
+    category: Results - Effect Estimates
+    question: "Are results of individual studies and syntheses presented?"
+    evaluation_criteria: "Should present results with confidence intervals for each study and summary estimates with forest plots if meta-analysis performed."
+    evidence_location_hint: "results"
+    severity_if_missing: CRITICAL
+
+  - item_id: PRISMA_18
+    item_number: "18"
+    category: Results - Heterogeneity
+    question: "Is heterogeneity investigated and reported?"
+    evaluation_criteria: "Should present heterogeneity statistics (e.g., I², τ²) and results of any subgroup/sensitivity analyses."
+    evidence_location_hint: "results"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_19
+    item_number: "19"
+    category: Results - Publication Bias
+    question: "Is assessment of publication bias reported if conducted?"
+    evaluation_criteria: "If assessed, should report methods and results (e.g., funnel plot, Egger's test)."
+    evidence_location_hint: "results"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_20
+    item_number: "20"
+    category: Discussion - Limitations
+    question: "Are limitations of the evidence and review process discussed?"
+    evaluation_criteria: "Should discuss limitations at study and review level, including risk of bias."
+    evidence_location_hint: "discussion.limitations"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_21
+    item_number: "21"
+    category: Discussion - Interpretation
+    question: "Is interpretation of results provided with implications?"
+    evaluation_criteria: "Should provide general interpretation in context of other evidence and implications for practice/research."
+    evidence_location_hint: "discussion.interpretation"
+    severity_if_missing: MINOR
+
+  - item_id: PRISMA_22
+    item_number: "22"
+    category: Other - Funding
+    question: "Are funding sources reported with role described?"
+    evaluation_criteria: "Should describe sources of financial/non-financial support and role of funders."
+    evidence_location_hint: "end_matter"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_23
+    item_number: "23"
+    category: Other - COI
+    question: "Are conflicts of interest disclosed?"
+    evaluation_criteria: "Should declare any conflicts of interest for review authors."
+    evidence_location_hint: "end_matter"
+    severity_if_missing: MAJOR
+
+  - item_id: PRISMA_24
+    item_number: "24"
+    category: Other - Data Availability
+    question: "Is availability of data and materials reported?"
+    evaluation_criteria: "Should state where supporting data and materials can be accessed."
+    evidence_location_hint: "end_matter"
+    severity_if_missing: MINOR
