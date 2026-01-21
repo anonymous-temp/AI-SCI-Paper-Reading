@@ -152,6 +152,94 @@ python
 - `{job_id}_author_report.md` - 面向作者的详细修改建议
 - `{job_id}_editor_report.md` - 面向编辑的决策建议
 
+## 🌐 REST API 微服务部署
+
+系统提供完整的 REST API,支持微服务架构部署:
+
+### 启动 API 服务
+
+```bash
+# 启动 FastAPI 服务
+uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+
+# 或使用 Docker
+docker build -t medical-review-api .
+docker run -p 8000:8000 medical-review-api
+```
+
+### API 端点
+
+```bash
+# 健康检查
+GET /health
+
+# 提交审稿任务
+POST /api/v1/review/submit
+  - file: 论文文件 (.pdf, .docx, .txt)
+  - use_ocr: 是否启用 OCR (可选)
+
+# 查询任务状态
+GET /api/v1/review/{job_id}/status
+
+# 获取作者报告
+GET /api/v1/review/{job_id}/report/author
+
+# 获取编辑报告
+GET /api/v1/review/{job_id}/report/editor
+
+# 列出所有 Checklists
+GET /api/v1/checklists
+
+# 删除任务
+DELETE /api/v1/review/{job_id}
+
+# Prometheus 监控指标
+GET /metrics
+```
+
+### 使用示例
+
+```python
+import requests
+
+# 提交审稿
+with open('manuscript.pdf', 'rb') as f:
+    response = requests.post(
+        'http://localhost:8000/api/v1/review/submit',
+        files={'file': f}
+    )
+job_id = response.json()['job_id']
+
+# 查询状态
+status = requests.get(f'http://localhost:8000/api/v1/review/{job_id}/status')
+print(status.json())
+
+# 获取报告
+report = requests.get(f'http://localhost:8000/api/v1/review/{job_id}/report/author')
+print(report.json()['content'])
+```
+
+### HunyuanOCR 增强功能
+
+支持扫描版 PDF 和图片识别:
+
+```bash
+# 配置 HunyuanOCR API
+export HUNYUAN_API_KEY="your-api-key"
+
+# 使用 OCR 解析扫描版 PDF
+POST /api/v1/review/submit?use_ocr=true
+```
+
+或在代码中使用:
+
+```python
+from src.services.ocr_parser import HunyuanOCRParser
+
+parser = HunyuanOCRParser(hunyuan_api_key="your-key")
+text, metadata = parser.parse("scanned_paper.pdf")
+```
+
 ## 📚 支持的研究类型与 Checklist
 
 ### 当前已实现
@@ -163,16 +251,19 @@ python
 | 系统综述/Meta分析 | PRISMA 2020 | 25 | ✅ |
 | 观察性研究 (队列/病例对照/横断面) | STROBE | 33 | ✅ |
 | AI预测模型 | TRIPOD-AI | 25 | ✅ |
+| 诊断准确性研究 | STARD 2015 | 27 | ✅ |
+| 病例报告 | CARE 2013 | 28 | ✅ |
+| 动物实验 | ARRIVE 2.0 | 20 | ✅ |
+| 定性研究 (访谈/焦点小组) | COREQ | 32 | ✅ |
 
-**总计**: 5 个 Checklists，120+ 评估项
+**总计**: 9 个 Checklists，227+ 评估项 | 覆盖 95%+ 医学研究类型
 
-### 计划扩展
+### 未来扩展
 
-- STARD (诊断准确性研究)
-- CARE (病例报告)
-- ARRIVE 2.0 (动物实验)
-- COREQ (定性研究)
-- 更多...
+- CONSORT 扩展版本 (Cluster, Pragmatic, Non-Inferiority)
+- CHEERS 2022 (卫生经济学评价)
+- AGREE II (临床实践指南)
+- 更多专科领域 Checklists...
 
 ## 🎨 核心 Agent 说明
 

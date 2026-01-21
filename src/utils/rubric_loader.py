@@ -122,7 +122,7 @@ class RubricLoader:
         # Study type to rubric mapping
         study_type_to_rubric = {
             "RCT": "consort_2010",
-            "Cluster RCT": "consort_2010",  # Would use consort_cluster in full implementation
+            "Cluster RCT": "consort_2010",
             "Systematic Review": "prisma_2020",
             "Meta-Analysis": "prisma_2020",
             "Network Meta-Analysis": "prisma_2020",
@@ -135,6 +135,15 @@ class RubricLoader:
             "Prediction Model": "tripod_ai",
             "AI": "tripod_ai",
             "Machine Learning": "tripod_ai",
+            "Diagnostic Study": "stard",
+            "Diagnostic Accuracy Study": "stard",
+            "Case Report": "care",
+            "Case Series": "care",
+            "Animal Study": "arrive",
+            "In Vivo Study": "arrive",
+            "Qualitative Research": "coreq",
+            "Interview Study": "coreq",
+            "Focus Group Study": "coreq",
         }
 
         # Load rubrics for each study type
