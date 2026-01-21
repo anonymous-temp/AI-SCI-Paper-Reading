@@ -1,0 +1,105 @@
+# Universal Medical Manuscript Rubric (UMMR)
+# Applies to ALL research types - basic quality and reporting standards
+
+name: Universal Medical Manuscript Rubric
+version: "1.0"
+applicable_to:
+  - "*"  # Applies to all study types
+description: "Universal checklist for basic manuscript quality and reporting standards"
+
+items:
+  - item_id: UMMR_TITLE_01
+    item_number: "T1"
+    category: Title
+    question: "Is the title informative and concise?"
+    evaluation_criteria: "Title should clearly indicate the study type, population, and main finding or objective within 20-25 words."
+    evidence_location_hint: "title"
+    severity_if_missing: MINOR
+
+  - item_id: UMMR_ABSTRACT_01
+    item_number: "A1"
+    category: Abstract
+    question: "Does the abstract contain all key elements (background, methods, results, conclusions)?"
+    evaluation_criteria: "Abstract should be self-contained and structured with clear sections."
+    evidence_location_hint: "abstract"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_INTRO_01
+    item_number: "I1"
+    category: Introduction
+    question: "Is the research question or objective clearly stated?"
+    evaluation_criteria: "Introduction should culminate in a clear statement of the study objective or research question."
+    evidence_location_hint: "introduction"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_METHODS_01
+    item_number: "M1"
+    category: Methods
+    question: "Is the study design clearly identified?"
+    evaluation_criteria: "Methods should explicitly state the study design (e.g., RCT, cohort study, meta-analysis)."
+    evidence_location_hint: "methods.study_design"
+    severity_if_missing: CRITICAL
+
+  - item_id: UMMR_METHODS_02
+    item_number: "M2"
+    category: Methods
+    question: "Are data sources or participants clearly described?"
+    evaluation_criteria: "Should describe who was studied or what data was analyzed with sufficient detail."
+    evidence_location_hint: "methods.participants"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_RESULTS_01
+    item_number: "R1"
+    category: Results
+    question: "Are the main findings clearly presented with appropriate statistics?"
+    evaluation_criteria: "Results should present main outcomes with measures of precision (CI, p-values)."
+    evidence_location_hint: "results"
+    severity_if_missing: CRITICAL
+
+  - item_id: UMMR_DISCUSSION_01
+    item_number: "D1"
+    category: Discussion
+    question: "Are study limitations explicitly discussed?"
+    evaluation_criteria: "Discussion must include a limitations section addressing potential biases and weaknesses."
+    evidence_location_hint: "discussion.limitations"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_DISCUSSION_02
+    item_number: "D2"
+    category: Discussion
+    question: "Is the generalizability or applicability of findings discussed?"
+    evaluation_criteria: "Should address to whom and in what settings the findings apply."
+    evidence_location_hint: "discussion.generalizability"
+    severity_if_missing: MINOR
+
+  - item_id: UMMR_ETHICS_01
+    item_number: "E1"
+    category: Ethics
+    question: "Is ethics approval mentioned (if human subjects or identifiable data)?"
+    evaluation_criteria: "Studies involving humans must mention ethics committee approval and consent."
+    evidence_location_hint: "methods.ethics"
+    severity_if_missing: CRITICAL
+
+  - item_id: UMMR_COI_01
+    item_number: "C1"
+    category: Conflicts of Interest
+    question: "Are conflicts of interest disclosed?"
+    evaluation_criteria: "Must include a statement about potential conflicts of interest (even if none)."
+    evidence_location_hint: "end_matter"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_FUNDING_01
+    item_number: "F1"
+    category: Funding
+    question: "Are funding sources disclosed?"
+    evaluation_criteria: "Must state sources of funding or explicitly state no funding was received."
+    evidence_location_hint: "end_matter"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_DATA_01
+    item_number: "DA1"
+    category: Data Availability
+    question: "Is there a data availability statement?"
+    evaluation_criteria: "Should indicate whether data is available and how to access it."
+    evidence_location_hint: "methods or end_matter"
+    severity_if_missing: MINOR
