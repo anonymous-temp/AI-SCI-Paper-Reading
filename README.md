@@ -156,18 +156,22 @@ python
 
 ### 当前已实现
 
-| 研究类型 | Checklist | 评估项数量 |
-|---------|-----------|----------|
-| 所有类型 | Universal Medical Manuscript Rubric | 12 |
-| RCT | CONSORT 2010 | 25 |
+| 研究类型 | Checklist | 评估项数量 | 状态 |
+|---------|-----------|----------|------|
+| 所有类型 | Universal Medical Manuscript Rubric | 12 | ✅ |
+| RCT | CONSORT 2010 | 25 | ✅ |
+| 系统综述/Meta分析 | PRISMA 2020 | 25 | ✅ |
+| 观察性研究 (队列/病例对照/横断面) | STROBE | 33 | ✅ |
+| AI预测模型 | TRIPOD-AI | 25 | ✅ |
+
+**总计**: 5 个 Checklists，120+ 评估项
 
 ### 计划扩展
 
-- PRISMA 2020 (系统综述)
-- STROBE (观察性研究)
-- TRIPOD-AI (预测模型)
 - STARD (诊断准确性研究)
 - CARE (病例报告)
+- ARRIVE 2.0 (动物实验)
+- COREQ (定性研究)
 - 更多...
 
 ## 🎨 核心 Agent 说明
@@ -271,17 +275,68 @@ python
 | 单 Block 处理延迟 | < 20 秒 |
 | 已知攻击模式检出率 | 100% |
 
-## 🛠️ 开发与测试
+## 🏭 生产级基础设施
+
+### Celery 分布式任务队列
+
+系统支持使用 Celery 进行真正的分布式并发执行:
 
 ```bash
-# 运行测试
-pytest tests/
+# 启动 Redis (作为 broker 和 backend)
+redis-server
 
+# 启动 Celery worker
+celery -A src.celery_app worker --loglevel=info --concurrency=4
+
+# 使用 Celery 执行审稿
+from src.tasks import dispatch_concurrent_reviews
+results = dispatch_concurrent_reviews(rubric_blocks, document_ir, evidence_map, llm_config)
+```
+
+### 结构化日志
+
+支持 JSON 格式的结构化日志,便于监控和分析:
+
+```python
+from src.utils import setup_logging, get_logger
+
+# 设置全局日志
+setup_logging(log_level="INFO", log_file="logs/review.log", json_format=True)
+
+# 获取上下文日志器
+logger = get_logger(__name__, job_id="job-123")
+logger.set_context(agent_type="DocumentAnalyzer")
+logger.info("Processing manuscript")
+logger.log_llm_call("DocumentAnalyzer", "gpt-4", 1000, 500, 2500.0)
+```
+
+### 测试套件
+
+包含全面的单元测试:
+
+```bash
+# 运行所有测试
+pytest tests/ -v
+
+# 运行特定测试
+pytest tests/test_rubric_loader.py -v
+pytest tests/test_schemas.py -v
+
+# 查看测试覆盖率
+pytest tests/ --cov=src --cov-report=html
+```
+
+## 🛠️ 开发命令
+
+```bash
 # 查看可用 Rubrics
 python -c "from src.utils import RubricLoader; loader = RubricLoader(); print(loader.list_available_rubrics())"
 
 # 查看 Rubric 详情
 python -c "from src.utils import RubricLoader; loader = RubricLoader(); print(loader.get_rubric_metadata('consort_2010'))"
+
+# 测试单个 Checklist
+python -c "from src.utils import RubricLoader; loader = RubricLoader(); items = loader.load_rubric('prisma_2020'); print(f'PRISMA 2020: {len(items)} items')"
 ```
 
 ## 📝 扩展开发指南
