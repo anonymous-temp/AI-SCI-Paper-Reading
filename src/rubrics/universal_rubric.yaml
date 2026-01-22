@@ -1,11 +1,25 @@
 # Universal Medical Manuscript Rubric (UMMR)
-# Applies to ALL research types - basic quality and reporting standards
+# Applies to ALL research types - comprehensive quality and reporting standards
+# Serves as fallback for research types without specific checklists
 
 name: Universal Medical Manuscript Rubric
-version: "1.0"
+version: "2.0"
 applicable_to:
   - "*"  # Applies to all study types
-description: "Universal checklist for basic manuscript quality and reporting standards"
+description: |
+  Universal checklist for comprehensive manuscript quality and reporting standards.
+  Covers 29 essential items across 10 categories:
+  - Title, Abstract, Introduction (3 items)
+  - Methods Quality (7 items): design, participants, statistics, bias control, quality assurance
+  - Results Quality (5 items): findings, uncertainty, effect sizes, missing data, figures
+  - Discussion Quality (5 items): limitations, generalizability, literature comparison, implications
+  - Reproducibility (3 items): protocol registration, materials, code/data sharing
+  - Ethics, Conflicts, Funding (3 items)
+  - References Quality (2 items)
+  - Writing Quality (2 items)
+
+  This rubric provides robust evaluation for any research type, including emerging methodologies
+  not yet covered by specialized checklists.
 
 items:
   - item_id: UMMR_TITLE_01
@@ -102,4 +116,162 @@ items:
     question: "Is there a data availability statement?"
     evaluation_criteria: "Should indicate whether data is available and how to access it."
     evidence_location_hint: "methods or end_matter"
+    severity_if_missing: MINOR
+
+  # Extended Methods Quality
+  - item_id: UMMR_METHODS_03
+    item_number: "M3"
+    category: Methods
+    question: "Is the sample size or data scope adequately described?"
+    evaluation_criteria: "Should specify the number of participants/samples/studies analyzed and justify if needed."
+    evidence_location_hint: "methods.sample_size or methods.participants"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_METHODS_04
+    item_number: "M4"
+    category: Methods
+    question: "Are statistical analysis methods clearly described?"
+    evaluation_criteria: "Should specify analytical approaches, software used, and handling of assumptions."
+    evidence_location_hint: "methods.statistics"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_METHODS_05
+    item_number: "M5"
+    category: Methods
+    question: "Are measures to reduce bias described?"
+    evaluation_criteria: "Should address potential sources of bias and how they were minimized (e.g., blinding, randomization, matching)."
+    evidence_location_hint: "methods"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_METHODS_06
+    item_number: "M6"
+    category: Methods
+    question: "Is the time frame of data collection specified?"
+    evaluation_criteria: "Should indicate when the study was conducted or data was collected."
+    evidence_location_hint: "methods"
+    severity_if_missing: MINOR
+
+  - item_id: UMMR_METHODS_07
+    item_number: "M7"
+    category: Methods
+    question: "Are quality control or validation measures mentioned?"
+    evaluation_criteria: "Should describe procedures to ensure data quality and accuracy."
+    evidence_location_hint: "methods"
+    severity_if_missing: MINOR
+
+  # Extended Results Quality
+  - item_id: UMMR_RESULTS_02
+    item_number: "R2"
+    category: Results
+    question: "Are confidence intervals or measures of uncertainty reported?"
+    evaluation_criteria: "Results should include 95% CI, standard errors, or credible intervals for main estimates."
+    evidence_location_hint: "results"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_RESULTS_03
+    item_number: "R3"
+    category: Results
+    question: "Are effect sizes reported (not just p-values)?"
+    evaluation_criteria: "Should report absolute or relative effect sizes (e.g., mean difference, OR, RR, Cohen's d)."
+    evidence_location_hint: "results"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_RESULTS_04
+    item_number: "R4"
+    category: Results
+    question: "Are tables and figures clear, complete, and properly labeled?"
+    evaluation_criteria: "All tables/figures should have descriptive titles, clear labels, and legends explaining abbreviations."
+    evidence_location_hint: "tables and figures"
+    severity_if_missing: MINOR
+
+  - item_id: UMMR_RESULTS_05
+    item_number: "R5"
+    category: Results
+    question: "Is missing data adequately addressed?"
+    evaluation_criteria: "Should report extent of missing data and methods used to handle it (e.g., imputation, sensitivity analysis)."
+    evidence_location_hint: "methods.statistics or results"
+    severity_if_missing: MAJOR
+
+  # Reproducibility and Transparency
+  - item_id: UMMR_REPRO_01
+    item_number: "RP1"
+    category: Reproducibility
+    question: "Is the study protocol registered or published?"
+    evaluation_criteria: "Prospective studies should mention protocol registration (e.g., ClinicalTrials.gov, PROSPERO)."
+    evidence_location_hint: "methods or end_matter"
+    severity_if_missing: MINOR
+
+  - item_id: UMMR_REPRO_02
+    item_number: "RP2"
+    category: Reproducibility
+    question: "Are materials or instruments described in sufficient detail?"
+    evaluation_criteria: "Should provide enough detail for replication (e.g., questionnaire items, measurement tools)."
+    evidence_location_hint: "methods"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_REPRO_03
+    item_number: "RP3"
+    category: Reproducibility
+    question: "Is analysis code or supplementary materials available?"
+    evaluation_criteria: "Computational studies should mention code availability; all studies benefit from supplements."
+    evidence_location_hint: "methods or end_matter"
+    severity_if_missing: MINOR
+
+  # Extended Discussion Quality
+  - item_id: UMMR_DISCUSSION_03
+    item_number: "D3"
+    category: Discussion
+    question: "Are findings compared with previous research?"
+    evaluation_criteria: "Should contextualize results within existing literature and explain agreements/disagreements."
+    evidence_location_hint: "discussion.interpretation"
+    severity_if_missing: MAJOR
+
+  - item_id: UMMR_DISCUSSION_04
+    item_number: "D4"
+    category: Discussion
+    question: "Are clinical or practical implications discussed?"
+    evaluation_criteria: "Should address how findings might inform practice, policy, or future research."
+    evidence_location_hint: "discussion"
+    severity_if_missing: MINOR
+
+  - item_id: UMMR_DISCUSSION_05
+    item_number: "D5"
+    category: Discussion
+    question: "Are alternative explanations or confounding factors considered?"
+    evaluation_criteria: "Should discuss potential alternative interpretations and residual confounding."
+    evidence_location_hint: "discussion"
+    severity_if_missing: MINOR
+
+  # References Quality
+  - item_id: UMMR_REF_01
+    item_number: "REF1"
+    category: References
+    question: "Are references current and relevant?"
+    evaluation_criteria: "Should cite recent studies (within 5-10 years for most topics) and seminal works."
+    evidence_location_hint: "references"
+    severity_if_missing: MINOR
+
+  - item_id: UMMR_REF_02
+    item_number: "REF2"
+    category: References
+    question: "Are key prior studies in the field cited?"
+    evaluation_criteria: "Should reference important previous work that establishes context and justification."
+    evidence_location_hint: "introduction and discussion"
+    severity_if_missing: MINOR
+
+  # Writing Quality
+  - item_id: UMMR_WRITE_01
+    item_number: "W1"
+    category: Writing Quality
+    question: "Is the manuscript logically structured and coherent?"
+    evaluation_criteria: "Sections should flow logically, with clear connections between introduction, methods, results, and discussion."
+    evidence_location_hint: "overall structure"
+    severity_if_missing: MINOR
+
+  - item_id: UMMR_WRITE_02
+    item_number: "W2"
+    category: Writing Quality
+    question: "Is technical language used appropriately and defined?"
+    evaluation_criteria: "Specialized terms should be defined on first use; jargon should be minimized."
+    evidence_location_hint: "throughout manuscript"
     severity_if_missing: MINOR

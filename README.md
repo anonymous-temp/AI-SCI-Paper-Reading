@@ -246,9 +246,9 @@ text, metadata = parser.parse("scanned_paper.pdf")
 
 | 研究类型 | Checklist | 评估项数量 | 状态 |
 |---------|-----------|----------|------|
-| 所有类型 | Universal Medical Manuscript Rubric | 12 | ✅ |
+| **所有类型 (兜底)** | **Universal Medical Manuscript Rubric v2.0** | **29** | ✅ |
 | RCT | CONSORT 2010 | 25 | ✅ |
-| 系统综述/Meta分析 | PRISMA 2020 | 25 | ✅ |
+| 系统综述/Meta分析/叙事性综述 | PRISMA 2020 | 25 | ✅ |
 | 观察性研究 (队列/病例对照/横断面) | STROBE | 33 | ✅ |
 | AI预测模型 | TRIPOD-AI | 25 | ✅ |
 | 诊断准确性研究 | STARD 2015 | 27 | ✅ |
@@ -256,7 +256,13 @@ text, metadata = parser.parse("scanned_paper.pdf")
 | 动物实验 | ARRIVE 2.0 | 20 | ✅ |
 | 定性研究 (访谈/焦点小组) | COREQ | 32 | ✅ |
 
-**总计**: 9 个 Checklists，227+ 评估项 | 覆盖 95%+ 医学研究类型
+**总计**: 9 个 Checklists，244+ 评估项 | 覆盖 95%+ 医学研究类型
+
+**🛡️ 兜底策略**:
+- **所有文献**均会应用 Universal Rubric (29 项) 进行基础质量评审
+- **已映射类型**会额外应用专业 Checklist (如 RCT → CONSORT 25 项，总计 54 项评审)
+- **未映射类型** (如专家共识、临床指南、卫生经济学等新兴研究类型) 仅使用 Universal Rubric，确保至少 29 项全面评审
+- Universal Rubric v2.0 覆盖: 方法学质量 (7项)、结果质量 (5项)、讨论质量 (5项)、可重复性 (3项)、伦理与利益冲突 (3项)、参考文献质量 (2项)、写作质量 (2项)、基础结构 (3项)
 
 ### 未来扩展
 
@@ -275,6 +281,16 @@ text, metadata = parser.parse("scanned_paper.pdf")
 - ⚡ **单次 LLM 调用** 完成: 章节划分 + 信息提取 + 研究类型识别
 - 使用 Advanced 模型确保高质量输出
 - 生成 EvidenceMap 加速下游检索
+
+**研究类型识别** (支持 32+ 种类型):
+- **综述类**: Systematic Review, Meta-Analysis, Narrative Review, Literature Review, Scoping Review, Umbrella Review, Rapid Review
+- **RCT 类**: RCT, Cluster RCT, Pragmatic RCT, Non-Inferiority RCT
+- **观察性研究**: Cohort Study, Case-Control Study, Cross-Sectional Study, Real World Data Study
+- **AI/预测模型**: Prediction Model, Prognostic Model, AI, Machine Learning
+- **诊断研究**: Diagnostic Study, Diagnostic Accuracy Study
+- **其他**: Case Report, Qualitative Research, Animal Study, Implementation Science, Economic Evaluation, Clinical Practice Guideline, Expert Consensus, Instrument Development
+
+**⚠️ 特别优化**: 准确区分综述文章 (Review) 与原始研究 (Original Research)，避免将综述误分类为观察性研究或 RCT
 
 ### 2. Integrity & Ethics Guard
 
