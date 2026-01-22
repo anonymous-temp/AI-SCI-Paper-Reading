@@ -47,7 +47,7 @@ class DocumentAnalyzerAgent:
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are an expert medical manuscript analyzer. Extract structured information from manuscripts with high precision."
+                        "content": "You are an expert medical manuscript analyzer. Extract structured information from manuscripts with high precision. CRITICAL: Correctly distinguish between review articles (Systematic Review, Meta-Analysis, Narrative Review, etc.) and original research studies (RCT, Cohort, Case-Control, etc.). Review articles synthesize existing literature and should NEVER be classified as observational or interventional studies."
                     },
                     {
                         "role": "user",
@@ -113,6 +113,24 @@ TASK: Extract the following information and return as JSON:
 
 2. **Study Type Classification** (multi-label): Identify ALL applicable study types from this list:
 {', '.join(RECOGNIZED_STUDY_TYPES)}
+
+CRITICAL GUIDELINES for study type identification:
+- **Review Articles**: If the paper primarily reviews and synthesizes existing literature (rather than collecting original data):
+  * "Systematic Review": Has systematic search strategy, PRISMA-like methodology, explicit inclusion/exclusion criteria
+  * "Meta-Analysis": Includes quantitative synthesis with pooled effect sizes, forest plots
+  * "Narrative Review": Traditional review without systematic search methodology
+  * "Literature Review": General term for non-systematic reviews
+  * "Scoping Review": Maps the literature on a broad topic
+  * "Umbrella Review": Review of reviews
+
+- **Original Research**: If the paper collects and analyzes new data:
+  * "RCT": Randomized controlled trial with intervention assignment
+  * "Cohort Study": Follows participants over time
+  * "Case-Control Study": Compares cases with disease to controls
+  * "Cross-Sectional Study": Single time point observational study
+
+- **DO NOT** classify a review article as "Observational Study", "Cohort Study", or "RCT"
+- A paper can have multiple types (e.g., "Systematic Review" + "Meta-Analysis")
 
 3. **Key Metadata**: Extract:
    - primary_outcome
