@@ -1,277 +1,198 @@
-# Universal Medical Manuscript Rubric (UMMR)
-# Applies to ALL research types - comprehensive quality and reporting standards
-# Serves as fallback for research types without specific checklists
+# Universal Research Value Assessment Rubric (URVAR)
+# Applies ONLY to research types without specialized checklists
+# Focuses on scientific contribution, innovation, and research value
 
-name: Universal Medical Manuscript Rubric
-version: "2.0"
+name: Universal Research Value Assessment Rubric
+version: "3.0"
 applicable_to:
-  - "*"  # Applies to all study types
+  - "*"  # Fallback for research types without specialized checklists
 description: |
-  Universal checklist for comprehensive manuscript quality and reporting standards.
-  Covers 31 essential items across 10 categories:
-  - Title, Abstract, Introduction (3 items)
-  - Methods Quality (7 items): design, participants, statistics, bias control, quality assurance
-  - Results Quality (5 items): findings, uncertainty, effect sizes, missing data, figures
-  - Discussion Quality (5 items): limitations, generalizability, literature comparison, implications
-  - Reproducibility (3 items): protocol registration, materials, code/data sharing
-  - Ethics, Conflicts, Funding (3 items)
-  - References Quality (2 items)
-  - Writing Quality (2 items)
+  Universal rubric for assessing research value and scientific contribution.
+  Used ONLY when no specialized checklist (CONSORT, PRISMA, STROBE, etc.) applies.
 
-  This rubric provides robust evaluation for any research type, including emerging methodologies
-  not yet covered by specialized checklists.
+  Focuses on high-level evaluation dimensions:
+  - Scientific innovation and novelty (4 items)
+  - Research contribution and impact (4 items)
+  - Clinical/practical significance (3 items)
+  - Methodological soundness - high level (3 items)
+  - Ethical integrity and transparency (3 items)
+  - Reproducibility and rigor (2 items)
+  - Presentation quality (2 items)
+
+  Total: 21 items assessing research value, not technical reporting details.
 
 items:
-  - item_id: UMMR_TITLE_01
-    item_number: "T1"
-    category: Title
-    question: "Is the title informative and concise?"
-    evaluation_criteria: "Title should clearly indicate the study type, population, and main finding or objective within 20-25 words."
-    evidence_location_hint: "title"
-    severity_if_missing: MINOR
-
-  - item_id: UMMR_ABSTRACT_01
-    item_number: "A1"
-    category: Abstract
-    question: "Does the abstract contain all key elements (background, methods, results, conclusions)?"
-    evaluation_criteria: "Abstract should be self-contained and structured with clear sections."
-    evidence_location_hint: "abstract"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_INTRO_01
+  # Scientific Innovation and Novelty
+  - item_id: URVAR_INNOV_01
     item_number: "I1"
-    category: Introduction
-    question: "Is the research question or objective clearly stated?"
-    evaluation_criteria: "Introduction should culminate in a clear statement of the study objective or research question."
+    category: Innovation
+    question: "Does the research address a novel or under-researched question?"
+    evaluation_criteria: "Should identify a clear knowledge gap or present a new research angle. Incremental studies should justify added value."
     evidence_location_hint: "introduction"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_METHODS_01
-    item_number: "M1"
-    category: Methods
-    question: "Is the study design clearly identified?"
-    evaluation_criteria: "Methods should explicitly state the study design (e.g., RCT, cohort study, meta-analysis)."
-    evidence_location_hint: "methods.study_design"
     severity_if_missing: CRITICAL
 
-  - item_id: UMMR_METHODS_02
-    item_number: "M2"
-    category: Methods
-    question: "Are data sources or participants clearly described?"
-    evaluation_criteria: "Should describe who was studied or what data was analyzed with sufficient detail."
-    evidence_location_hint: "methods.participants"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_RESULTS_01
-    item_number: "R1"
-    category: Results
-    question: "Are the main findings clearly presented with appropriate statistics?"
-    evaluation_criteria: "Results should present main outcomes with measures of precision (CI, p-values)."
-    evidence_location_hint: "results"
-    severity_if_missing: CRITICAL
-
-  - item_id: UMMR_DISCUSSION_01
-    item_number: "D1"
-    category: Discussion
-    question: "Are study limitations explicitly discussed?"
-    evaluation_criteria: "Discussion must include a limitations section addressing potential biases and weaknesses."
-    evidence_location_hint: "discussion.limitations"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_DISCUSSION_02
-    item_number: "D2"
-    category: Discussion
-    question: "Is the generalizability or applicability of findings discussed?"
-    evaluation_criteria: "Should address to whom and in what settings the findings apply."
-    evidence_location_hint: "discussion.generalizability"
-    severity_if_missing: MINOR
-
-  - item_id: UMMR_ETHICS_01
-    item_number: "E1"
-    category: Ethics
-    question: "Is ethics approval mentioned (if human subjects or identifiable data)?"
-    evaluation_criteria: "Studies involving humans must mention ethics committee approval and consent."
-    evidence_location_hint: "methods.ethics"
-    severity_if_missing: CRITICAL
-
-  - item_id: UMMR_COI_01
-    item_number: "C1"
-    category: Conflicts of Interest
-    question: "Are conflicts of interest disclosed?"
-    evaluation_criteria: "Must include a statement about potential conflicts of interest (even if none)."
-    evidence_location_hint: "end_matter"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_FUNDING_01
-    item_number: "F1"
-    category: Funding
-    question: "Are funding sources disclosed?"
-    evaluation_criteria: "Must state sources of funding or explicitly state no funding was received."
-    evidence_location_hint: "end_matter"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_DATA_01
-    item_number: "DA1"
-    category: Data Availability
-    question: "Is there a data availability statement?"
-    evaluation_criteria: "Should indicate whether data is available and how to access it."
-    evidence_location_hint: "methods or end_matter"
-    severity_if_missing: MINOR
-
-  # Extended Methods Quality
-  - item_id: UMMR_METHODS_03
-    item_number: "M3"
-    category: Methods
-    question: "Is the sample size or data scope adequately described?"
-    evaluation_criteria: "Should specify the number of participants/samples/studies analyzed and justify if needed."
-    evidence_location_hint: "methods.sample_size or methods.participants"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_METHODS_04
-    item_number: "M4"
-    category: Methods
-    question: "Are statistical analysis methods clearly described?"
-    evaluation_criteria: "Should specify analytical approaches, software used, and handling of assumptions."
-    evidence_location_hint: "methods.statistics"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_METHODS_05
-    item_number: "M5"
-    category: Methods
-    question: "Are measures to reduce bias described?"
-    evaluation_criteria: "Should address potential sources of bias and how they were minimized (e.g., blinding, randomization, matching)."
+  - item_id: URVAR_INNOV_02
+    item_number: "I2"
+    category: Innovation
+    question: "Does the study employ innovative methods, technologies, or analytical approaches?"
+    evaluation_criteria: "Novel methodology, new technology application, or creative analytical framework adds value beyond routine research."
     evidence_location_hint: "methods"
     severity_if_missing: MAJOR
 
-  - item_id: UMMR_METHODS_06
-    item_number: "M6"
-    category: Methods
-    question: "Is the time frame of data collection specified?"
-    evaluation_criteria: "Should indicate when the study was conducted or data was collected."
-    evidence_location_hint: "methods"
-    severity_if_missing: MINOR
-
-  - item_id: UMMR_METHODS_07
-    item_number: "M7"
-    category: Methods
-    question: "Are quality control or validation measures mentioned?"
-    evaluation_criteria: "Should describe procedures to ensure data quality and accuracy."
-    evidence_location_hint: "methods"
-    severity_if_missing: MINOR
-
-  # Extended Results Quality
-  - item_id: UMMR_RESULTS_02
-    item_number: "R2"
-    category: Results
-    question: "Are confidence intervals or measures of uncertainty reported?"
-    evaluation_criteria: "Results should include 95% CI, standard errors, or credible intervals for main estimates."
-    evidence_location_hint: "results"
+  - item_id: URVAR_INNOV_03
+    item_number: "I3"
+    category: Innovation
+    question: "Are the findings novel or do they challenge existing paradigms?"
+    evaluation_criteria: "Results should provide new insights, unexpected findings, or challenge conventional understanding."
+    evidence_location_hint: "results and discussion"
     severity_if_missing: MAJOR
 
-  - item_id: UMMR_RESULTS_03
-    item_number: "R3"
-    category: Results
-    question: "Are effect sizes reported (not just p-values)?"
-    evaluation_criteria: "Should report absolute or relative effect sizes (e.g., mean difference, OR, RR, Cohen's d)."
-    evidence_location_hint: "results"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_RESULTS_04
-    item_number: "R4"
-    category: Results
-    question: "Are tables and figures clear, complete, and properly labeled?"
-    evaluation_criteria: "All tables/figures should have descriptive titles, clear labels, and legends explaining abbreviations."
-    evidence_location_hint: "tables and figures"
-    severity_if_missing: MINOR
-
-  - item_id: UMMR_RESULTS_05
-    item_number: "R5"
-    category: Results
-    question: "Is missing data adequately addressed?"
-    evaluation_criteria: "Should report extent of missing data and methods used to handle it (e.g., imputation, sensitivity analysis)."
-    evidence_location_hint: "methods.statistics or results"
-    severity_if_missing: MAJOR
-
-  # Reproducibility and Transparency
-  - item_id: UMMR_REPRO_01
-    item_number: "RP1"
-    category: Reproducibility
-    question: "Is the study protocol registered or published?"
-    evaluation_criteria: "Prospective studies should mention protocol registration (e.g., ClinicalTrials.gov, PROSPERO)."
-    evidence_location_hint: "methods or end_matter"
-    severity_if_missing: MINOR
-
-  - item_id: UMMR_REPRO_02
-    item_number: "RP2"
-    category: Reproducibility
-    question: "Are materials or instruments described in sufficient detail?"
-    evaluation_criteria: "Should provide enough detail for replication (e.g., questionnaire items, measurement tools)."
-    evidence_location_hint: "methods"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_REPRO_03
-    item_number: "RP3"
-    category: Reproducibility
-    question: "Is analysis code or supplementary materials available?"
-    evaluation_criteria: "Computational studies should mention code availability; all studies benefit from supplements."
-    evidence_location_hint: "methods or end_matter"
-    severity_if_missing: MINOR
-
-  # Extended Discussion Quality
-  - item_id: UMMR_DISCUSSION_03
-    item_number: "D3"
-    category: Discussion
-    question: "Are findings compared with previous research?"
-    evaluation_criteria: "Should contextualize results within existing literature and explain agreements/disagreements."
-    evidence_location_hint: "discussion.interpretation"
-    severity_if_missing: MAJOR
-
-  - item_id: UMMR_DISCUSSION_04
-    item_number: "D4"
-    category: Discussion
-    question: "Are clinical or practical implications discussed?"
-    evaluation_criteria: "Should address how findings might inform practice, policy, or future research."
-    evidence_location_hint: "discussion"
-    severity_if_missing: MINOR
-
-  - item_id: UMMR_DISCUSSION_05
-    item_number: "D5"
-    category: Discussion
-    question: "Are alternative explanations or confounding factors considered?"
-    evaluation_criteria: "Should discuss potential alternative interpretations and residual confounding."
-    evidence_location_hint: "discussion"
-    severity_if_missing: MINOR
-
-  # References Quality
-  - item_id: UMMR_REF_01
-    item_number: "REF1"
-    category: References
-    question: "Are references current and relevant?"
-    evaluation_criteria: "Should cite recent studies (within 5-10 years for most topics) and seminal works."
-    evidence_location_hint: "references"
-    severity_if_missing: MINOR
-
-  - item_id: UMMR_REF_02
-    item_number: "REF2"
-    category: References
-    question: "Are key prior studies in the field cited?"
-    evaluation_criteria: "Should reference important previous work that establishes context and justification."
+  - item_id: URVAR_INNOV_04
+    item_number: "I4"
+    category: Innovation
+    question: "Does the study integrate knowledge across disciplines or domains?"
+    evaluation_criteria: "Interdisciplinary or translational research that bridges fields adds unique value."
     evidence_location_hint: "introduction and discussion"
     severity_if_missing: MINOR
 
-  # Writing Quality
-  - item_id: UMMR_WRITE_01
-    item_number: "W1"
-    category: Writing Quality
-    question: "Is the manuscript logically structured and coherent?"
-    evaluation_criteria: "Sections should flow logically, with clear connections between introduction, methods, results, and discussion."
-    evidence_location_hint: "overall structure"
+  # Research Contribution and Impact
+  - item_id: URVAR_CONTRIB_01
+    item_number: "C1"
+    category: Contribution
+    question: "Does the research make a clear contribution to the existing knowledge base?"
+    evaluation_criteria: "Should explicitly state what new knowledge is added and how it advances the field."
+    evidence_location_hint: "discussion"
+    severity_if_missing: CRITICAL
+
+  - item_id: URVAR_CONTRIB_02
+    item_number: "C2"
+    category: Contribution
+    question: "Are the findings sufficiently robust to support the conclusions drawn?"
+    evaluation_criteria: "Sample size, effect sizes, and statistical power should be adequate for the claimed contributions."
+    evidence_location_hint: "results and discussion"
+    severity_if_missing: CRITICAL
+
+  - item_id: URVAR_CONTRIB_03
+    item_number: "C3"
+    category: Contribution
+    question: "Are results placed in appropriate context with existing literature?"
+    evaluation_criteria: "Should compare findings with prior studies, explain agreements/disagreements, and update current understanding."
+    evidence_location_hint: "discussion"
+    severity_if_missing: MAJOR
+
+  - item_id: URVAR_CONTRIB_04
+    item_number: "C4"
+    category: Contribution
+    question: "Does the discussion identify clear directions for future research?"
+    evaluation_criteria: "Should propose specific next steps or unanswered questions based on current findings."
+    evidence_location_hint: "discussion"
     severity_if_missing: MINOR
 
-  - item_id: UMMR_WRITE_02
-    item_number: "W2"
-    category: Writing Quality
-    question: "Is technical language used appropriately and defined?"
-    evaluation_criteria: "Specialized terms should be defined on first use; jargon should be minimized."
+  # Clinical/Practical Significance
+  - item_id: URVAR_IMPACT_01
+    item_number: "P1"
+    category: Practical Impact
+    question: "Does the research have clear clinical, policy, or practical implications?"
+    evaluation_criteria: "Should articulate how findings could inform practice, policy, or real-world decision-making."
+    evidence_location_hint: "discussion"
+    severity_if_missing: MAJOR
+
+  - item_id: URVAR_IMPACT_02
+    item_number: "P2"
+    category: Practical Impact
+    question: "Is the potential impact of findings discussed realistically (benefits AND limitations)?"
+    evaluation_criteria: "Should provide balanced discussion of how findings can be applied and what limitations exist for implementation."
+    evidence_location_hint: "discussion"
+    severity_if_missing: MAJOR
+
+  - item_id: URVAR_IMPACT_03
+    item_number: "P3"
+    category: Practical Impact
+    question: "Is generalizability or external validity appropriately addressed?"
+    evaluation_criteria: "Should discuss to what populations, settings, or contexts the findings apply."
+    evidence_location_hint: "discussion.generalizability"
+    severity_if_missing: MAJOR
+
+  # Methodological Soundness - High Level
+  - item_id: URVAR_METHOD_01
+    item_number: "M1"
+    category: Methodology
+    question: "Is the overall research design appropriate for answering the research question?"
+    evaluation_criteria: "Study design (experimental, observational, qualitative, etc.) should logically align with the research objectives."
+    evidence_location_hint: "methods.study_design"
+    severity_if_missing: CRITICAL
+
+  - item_id: URVAR_METHOD_02
+    item_number: "M2"
+    category: Methodology
+    question: "Are key sources of bias acknowledged and addressed?"
+    evaluation_criteria: "Should identify major potential biases (selection, measurement, confounding) and discuss mitigation strategies."
+    evidence_location_hint: "methods and discussion.limitations"
+    severity_if_missing: MAJOR
+
+  - item_id: URVAR_METHOD_03
+    item_number: "M3"
+    category: Methodology
+    question: "Are study limitations honestly and comprehensively discussed?"
+    evaluation_criteria: "Should provide critical self-assessment of methodological weaknesses, data limitations, and alternative explanations."
+    evidence_location_hint: "discussion.limitations"
+    severity_if_missing: CRITICAL
+
+  # Ethical Integrity and Transparency
+  - item_id: URVAR_ETHICS_01
+    item_number: "E1"
+    category: Ethics
+    question: "Are ethical approvals and consent procedures appropriately described?"
+    evaluation_criteria: "Studies involving humans/animals must mention ethics committee approval; consent processes should be clear."
+    evidence_location_hint: "methods.ethics"
+    severity_if_missing: CRITICAL
+
+  - item_id: URVAR_ETHICS_02
+    item_number: "E2"
+    category: Ethics
+    question: "Are conflicts of interest and funding sources transparently disclosed?"
+    evaluation_criteria: "Must declare all funding sources and potential conflicts (financial and non-financial)."
+    evidence_location_hint: "end_matter"
+    severity_if_missing: CRITICAL
+
+  - item_id: URVAR_ETHICS_03
+    item_number: "E3"
+    category: Ethics
+    question: "Is there evidence of scientific integrity (no data fabrication, plagiarism, selective reporting)?"
+    evaluation_criteria: "Results should be internally consistent; discussion should not cherry-pick favorable findings."
     evidence_location_hint: "throughout manuscript"
+    severity_if_missing: CRITICAL
+
+  # Reproducibility and Rigor
+  - item_id: URVAR_REPRO_01
+    item_number: "R1"
+    category: Reproducibility
+    question: "Is sufficient methodological detail provided for others to replicate the study?"
+    evaluation_criteria: "Methods should contain enough detail for independent replication (materials, procedures, analysis)."
+    evidence_location_hint: "methods"
+    severity_if_missing: MAJOR
+
+  - item_id: URVAR_REPRO_02
+    item_number: "R2"
+    category: Reproducibility
+    question: "Is data/code sharing mentioned or are supplementary materials provided?"
+    evaluation_criteria: "Should indicate data availability, provide supplementary materials, or explain restrictions."
+    evidence_location_hint: "methods or end_matter"
+    severity_if_missing: MINOR
+
+  # Presentation Quality
+  - item_id: URVAR_PRESENT_01
+    item_number: "W1"
+    category: Presentation
+    question: "Is the manuscript well-organized with logical flow from question to conclusions?"
+    evaluation_criteria: "Introduction should motivate the question; methods should be coherent; results should address objectives; discussion should synthesize findings."
+    evidence_location_hint: "overall structure"
+    severity_if_missing: MAJOR
+
+  - item_id: URVAR_PRESENT_02
+    item_number: "W2"
+    category: Presentation
+    question: "Are figures, tables, and visualizations clear, informative, and properly labeled?"
+    evaluation_criteria: "All visual elements should be self-explanatory with clear titles, labels, legends, and appropriate statistical indicators."
+    evidence_location_hint: "tables and figures"
     severity_if_missing: MINOR

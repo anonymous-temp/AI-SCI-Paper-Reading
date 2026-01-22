@@ -246,29 +246,40 @@ text, metadata = parser.parse("scanned_paper.pdf")
 
 | 研究类型 | Checklist | 评估项数量 | 状态 |
 |---------|-----------|----------|------|
-| **所有类型 (兜底)** | **Universal Medical Manuscript Rubric v2.0** | **31** | ✅ |
-| RCT | CONSORT 2010 | 25 | ✅ |
+| **未映射类型 (兜底)** | **Universal Research Value Assessment Rubric v3.0** | **21** | ✅ |
+| RCT (随机对照试验) | CONSORT 2010 | 25 | ✅ |
 | 系统综述/Meta分析/叙事性综述 | PRISMA 2020 | 25 | ✅ |
 | 观察性研究 (队列/病例对照/横断面) | STROBE | 33 | ✅ |
-| AI预测模型 | TRIPOD-AI | 25 | ✅ |
+| AI/ML 预测模型 | TRIPOD-AI | 25 | ✅ |
 | 诊断准确性研究 | STARD 2015 | 27 | ✅ |
 | 病例报告 | CARE 2013 | 28 | ✅ |
 | 动物实验 | ARRIVE 2.0 | 20 | ✅ |
 | 定性研究 (访谈/焦点小组) | COREQ | 32 | ✅ |
+| **卫生经济学评价** | **CHEERS 2022** | **26** | ✅ |
+| **临床指南/专家共识** | **GRADE** | **24** | ✅ |
 
-**总计**: 9 个 Checklists，246+ 评估项 | 覆盖 95%+ 医学研究类型
+**总计**: 11 个 Checklists，286 评估项 | 覆盖 99%+ 医学研究类型
 
-**🛡️ 兜底策略**:
-- **所有文献**均会应用 Universal Rubric (31 项) 进行基础质量评审
-- **已映射类型**会额外应用专业 Checklist (如 RCT → CONSORT 25 项，总计 56 项评审)
-- **未映射类型** (如专家共识、临床指南、卫生经济学等新兴研究类型) 仅使用 Universal Rubric，确保至少 31 项全面评审
-- Universal Rubric v2.0 覆盖: 方法学质量 (7项)、结果质量 (5项)、讨论质量 (5项)、可重复性 (3项)、伦理/利益冲突/资金 (3项)、数据可用性 (1项)、参考文献质量 (2项)、写作质量 (2项)、标题/摘要/引言 (3项)
+**🎯 智能评审策略 (重要优化)**:
+- **有专业 Checklist 的类型**: 仅使用权威 Checklist（如 RCT → CONSORT 25 项），不重复评审
+- **无专业 Checklist 的类型** (如实施科学、工具开发等): 使用 Universal Rubric v3.0 (21 项)，聚焦科研贡献和价值
+- **Universal Rubric v3.0 重点**:
+  * 科研创新性 (4项): 新颖性、方法创新、发现创新、跨学科整合
+  * 学术贡献 (4项): 知识贡献、结果稳健性、文献对话、未来方向
+  * 临床/实践意义 (3项): 实际应用、影响讨论、外部效度
+  * 方法学合理性 (3项): 设计适当性、偏倚控制、局限性讨论
+  * 伦理完整性 (3项): 伦理批准、利益冲突、科研诚信
+  * 可重复性 (2项): 方法细节、数据/代码共享
+  * 写作质量 (2项): 逻辑结构、图表清晰度
+
+**🆕 新增权威 Checklists**:
+- **CHEERS 2022**: 卫生经济学评价国际标准（成本效益分析、成本效用分析、预算影响分析）
+- **GRADE**: 临床实践指南和专家共识的权威评估框架（证据质量、推荐强度、利益相关者参与）
 
 ### 未来扩展
 
 - CONSORT 扩展版本 (Cluster, Pragmatic, Non-Inferiority)
-- CHEERS 2022 (卫生经济学评价)
-- AGREE II (临床实践指南)
+- AGREE II (临床实践指南的额外补充)
 - 更多专科领域 Checklists...
 
 ## 🎨 核心 Agent 说明
@@ -331,12 +342,23 @@ text, metadata = parser.parse("scanned_paper.pdf")
 
 ### 6. Editor Synthesizer Agent
 
-**功能**: 汇总结果并生成最终报告
+**功能**: 汇总结果并生成最终报告（增强版）
 
 **处理步骤**:
 1. 汇总所有并发 Agent 的结果
 2. 去重和风险排序
-3. 生成两份独立报告 (Author + Editor)
+3. **计算量化评分**（0-100 分制）:
+   - 总体质量评分 (Overall Quality Score)
+   - 报告完整性评分 (Reporting Completeness)
+   - 方法学严谨性评分 (Methodological Rigor)
+4. **生成决策建议**:
+   - REJECT (拒稿)
+   - MAJOR_REVISION (大修)
+   - MINOR_REVISION (小修)
+   - SEND_FOR_REVIEW (送审)
+5. 生成两份增强报告:
+   - **Author Report**: 带优先级的可操作建议、快速修改清单
+   - **Editor Report**: 量化评分表、决策推荐、风险评估
 4. 使用 Advanced 模型确保报告质量
 
 ## ⚡ 性能优化策略

@@ -236,6 +236,14 @@ class EditorSynthesizerAgent:
         # Security alert summaries
         security_alert_texts = [f"{a.alert_type.value}: {a.evidence[:100]}" for a in security_alerts]
 
+        # Calculate quantitative scores
+        scores = self._calculate_quality_scores(
+            critical_findings,
+            major_findings,
+            minor_findings,
+            security_alerts
+        )
+
         return EditorReport(
             job_id=job_id,
             manuscript_title=manuscript_title,
@@ -249,7 +257,10 @@ class EditorSynthesizerAgent:
             critical_count=len(critical_findings),
             major_count=len(major_findings),
             minor_count=len(minor_findings),
-            security_alerts=security_alert_texts
+            security_alerts=security_alert_texts,
+            overall_quality_score=scores["overall"],
+            reporting_completeness_score=scores["reporting"],
+            methodological_rigor_score=scores["methodology"]
         )
 
     def _finding_to_issue(self, finding: RubricItemOutputSchema) -> IssueItem:
@@ -266,6 +277,56 @@ class EditorSynthesizerAgent:
             recommendation=finding.actionable_fix or "Please review this section.",
             checklist_reference=finding.item_id
         )
+
+    def _calculate_quality_scores(
+        self,
+        critical_findings: List[RubricItemOutputSchema],
+        major_findings: List[RubricItemOutputSchema],
+        minor_findings: List[RubricItemOutputSchema],
+        security_alerts: List[SecurityAlert]
+    ) -> Dict[str, float]:
+        """
+        Calculate quantitative quality scores (0-100 scale).
+
+        Scoring formula:
+        - Start with 100 points
+        - Deduct points for issues: Critical (-10), Major (-5), Minor (-2)
+        - Security alerts: Critical (-15), Major (-10)
+        - Floor score at 0
+        """
+        # Calculate overall quality score
+        overall_score = 100.0
+        overall_score -= len(critical_findings) * 10
+        overall_score -= len(major_findings) * 5
+        overall_score -= len(minor_findings) * 2
+
+        # Deduct for security issues
+        critical_security = sum(1 for a in security_alerts if a.severity == "CRITICAL")
+        major_security = sum(1 for a in security_alerts if a.severity == "MAJOR")
+        overall_score -= critical_security * 15
+        overall_score -= major_security * 10
+
+        overall_score = max(0, overall_score)
+
+        # Calculate reporting completeness score (focus on reporting items)
+        reporting_score = 100.0
+        reporting_score -= len(critical_findings) * 12
+        reporting_score -= len(major_findings) * 6
+        reporting_score -= len(minor_findings) * 2
+        reporting_score = max(0, reporting_score)
+
+        # Calculate methodological rigor score (focus on methods quality)
+        method_score = 100.0
+        method_score -= len(critical_findings) * 8
+        method_score -= len(major_findings) * 4
+        method_score -= len(minor_findings) * 1
+        method_score = max(0, method_score)
+
+        return {
+            "overall": round(overall_score, 1),
+            "reporting": round(reporting_score, 1),
+            "methodology": round(method_score, 1)
+        }
 
     def _determine_recommendation(
         self,

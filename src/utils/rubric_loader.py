@@ -107,6 +107,11 @@ class RubricLoader:
         """
         Load all applicable rubrics for given study types.
 
+        Strategy:
+        - If study type has specialized checklist (CONSORT, PRISMA, etc.), use ONLY that checklist
+        - If study type has NO mapping, use Universal Rubric as fallback
+        - Universal Rubric focuses on research value and contribution, not technical details
+
         Args:
             study_types: List of study type labels (e.g., ["RCT", "AI"])
 
@@ -114,10 +119,6 @@ class RubricLoader:
             Combined list of all applicable RubricItems (with duplicates removed)
         """
         all_items: List[RubricItem] = []
-
-        # Always load universal rubric first
-        universal_items = self.load_rubric("universal_rubric")
-        all_items.extend(universal_items)
 
         # Study type to rubric mapping
         study_type_to_rubric = {
@@ -152,10 +153,19 @@ class RubricLoader:
             "Qualitative Research": "coreq",
             "Interview Study": "coreq",
             "Focus Group Study": "coreq",
+            "Economic Evaluation": "cheers_2022",
+            "Cost-Effectiveness Analysis": "cheers_2022",
+            "Cost-Utility Analysis": "cheers_2022",
+            "Budget Impact Analysis": "cheers_2022",
+            "Clinical Practice Guideline": "grade",
+            "Expert Consensus": "grade",
+            "Recommendation": "grade",
         }
 
         # Load rubrics for each study type
         loaded_rubrics = set()
+        has_specialized_checklist = False
+
         for study_type in study_types:
             rubric_name = study_type_to_rubric.get(study_type)
             if rubric_name and rubric_name not in loaded_rubrics:
@@ -163,9 +173,15 @@ class RubricLoader:
                     items = self.load_rubric(rubric_name)
                     all_items.extend(items)
                     loaded_rubrics.add(rubric_name)
+                    has_specialized_checklist = True
                 except FileNotFoundError:
                     # Rubric not yet implemented, skip
                     continue
+
+        # Fallback: Use Universal Rubric ONLY if no specialized checklist was loaded
+        if not has_specialized_checklist:
+            universal_items = self.load_rubric("universal_rubric")
+            all_items.extend(universal_items)
 
         # Remove duplicates based on item_id
         seen_ids = set()
