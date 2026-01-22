@@ -193,7 +193,7 @@ items:
     severity_if_missing: MINOR
 
   - item_id: GRADE_APP_02
-    item_number:="23"
+    item_number: "23"
     category: Applicability
     question: "Are monitoring and audit criteria provided?"
     evaluation_criteria: "Should suggest key indicators for measuring guideline implementation."
