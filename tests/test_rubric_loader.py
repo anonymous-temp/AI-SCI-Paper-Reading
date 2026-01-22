@@ -105,10 +105,11 @@ class TestRubricLoader:
         assert isinstance(items, list)
         assert len(items) > 0
 
-        # Should include universal and CONSORT items
+        # Should include ONLY CONSORT (no Universal when specialized checklist exists)
         checklists = set(item.checklist_name for item in items)
-        assert "Universal Medical Manuscript Rubric" in checklists
         assert "CONSORT 2010" in checklists
+        # New behavior: Universal should NOT be loaded when specialized checklist exists
+        assert "Universal" not in str(checklists)
 
     def test_load_rubrics_for_study_types_systematic_review(self, loader):
         """Test loading rubrics for systematic review"""
@@ -138,7 +139,8 @@ class TestRubricLoader:
         checklists = set(item.checklist_name for item in items)
         assert "CONSORT 2010" in checklists
         assert "TRIPOD-AI" in checklists
-        assert "Universal Medical Manuscript Rubric" in checklists
+        # New behavior: Universal should NOT be loaded when specialized checklists exist
+        assert "Universal" not in str(checklists)
 
     def test_no_duplicate_items(self, loader):
         """Test that duplicate items are removed"""
@@ -147,6 +149,28 @@ class TestRubricLoader:
         # Should not have duplicate item IDs
         item_ids = [item.item_id for item in items]
         assert len(item_ids) == len(set(item_ids))
+
+    def test_universal_rubric_fallback(self, loader):
+        """Test that Universal Rubric is used as fallback for unmapped types"""
+        # Test with unmapped study type
+        items = loader.load_rubrics_for_study_types(["Instrument Development"])
+
+        assert isinstance(items, list)
+        assert len(items) > 0
+
+        checklists = set(item.checklist_name for item in items)
+        # Should ONLY load Universal Rubric for unmapped types
+        assert "Universal" in str(checklists)
+
+    def test_universal_rubric_not_loaded_with_specialized(self, loader):
+        """Test that Universal Rubric is NOT loaded when specialized checklist exists"""
+        # Mix of mapped and unmapped types
+        items = loader.load_rubrics_for_study_types(["RCT", "Instrument Development"])
+
+        checklists = set(item.checklist_name for item in items)
+        # Should load CONSORT (specialized), but NOT Universal
+        assert "CONSORT 2010" in checklists
+        assert "Universal" not in str(checklists)
 
     def test_get_rubric_metadata(self, loader):
         """Test getting rubric metadata"""
