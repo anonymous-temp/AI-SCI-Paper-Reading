@@ -8,7 +8,7 @@ applicable_to:
   - "*"  # Applies to all study types
 description: |
   Universal checklist for comprehensive manuscript quality and reporting standards.
-  Covers 29 essential items across 10 categories:
+  Covers 31 essential items across 10 categories:
   - Title, Abstract, Introduction (3 items)
   - Methods Quality (7 items): design, participants, statistics, bias control, quality assurance
   - Results Quality (5 items): findings, uncertainty, effect sizes, missing data, figures

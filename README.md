@@ -246,7 +246,7 @@ text, metadata = parser.parse("scanned_paper.pdf")
 
 | 研究类型 | Checklist | 评估项数量 | 状态 |
 |---------|-----------|----------|------|
-| **所有类型 (兜底)** | **Universal Medical Manuscript Rubric v2.0** | **29** | ✅ |
+| **所有类型 (兜底)** | **Universal Medical Manuscript Rubric v2.0** | **31** | ✅ |
 | RCT | CONSORT 2010 | 25 | ✅ |
 | 系统综述/Meta分析/叙事性综述 | PRISMA 2020 | 25 | ✅ |
 | 观察性研究 (队列/病例对照/横断面) | STROBE | 33 | ✅ |
@@ -256,13 +256,13 @@ text, metadata = parser.parse("scanned_paper.pdf")
 | 动物实验 | ARRIVE 2.0 | 20 | ✅ |
 | 定性研究 (访谈/焦点小组) | COREQ | 32 | ✅ |
 
-**总计**: 9 个 Checklists，244+ 评估项 | 覆盖 95%+ 医学研究类型
+**总计**: 9 个 Checklists，246+ 评估项 | 覆盖 95%+ 医学研究类型
 
 **🛡️ 兜底策略**:
-- **所有文献**均会应用 Universal Rubric (29 项) 进行基础质量评审
-- **已映射类型**会额外应用专业 Checklist (如 RCT → CONSORT 25 项，总计 54 项评审)
-- **未映射类型** (如专家共识、临床指南、卫生经济学等新兴研究类型) 仅使用 Universal Rubric，确保至少 29 项全面评审
-- Universal Rubric v2.0 覆盖: 方法学质量 (7项)、结果质量 (5项)、讨论质量 (5项)、可重复性 (3项)、伦理与利益冲突 (3项)、参考文献质量 (2项)、写作质量 (2项)、基础结构 (3项)
+- **所有文献**均会应用 Universal Rubric (31 项) 进行基础质量评审
+- **已映射类型**会额外应用专业 Checklist (如 RCT → CONSORT 25 项，总计 56 项评审)
+- **未映射类型** (如专家共识、临床指南、卫生经济学等新兴研究类型) 仅使用 Universal Rubric，确保至少 31 项全面评审
+- Universal Rubric v2.0 覆盖: 方法学质量 (7项)、结果质量 (5项)、讨论质量 (5项)、可重复性 (3项)、伦理/利益冲突/资金 (3项)、数据可用性 (1项)、参考文献质量 (2项)、写作质量 (2项)、标题/摘要/引言 (3项)
 
 ### 未来扩展
 
