@@ -4,6 +4,56 @@
 
 A sophisticated AI-powered system for automated pre-review and screening of medical research manuscripts, based on international reporting guidelines (CONSORT, PRISMA, STROBE, etc.).
 
+## 🚀 快速开始
+
+### 1. 安装依赖
+
+```bash
+# 克隆项目
+git clone https://github.com/anonymous-temp/AI-SCI-Paper-Reading.git
+cd AI-SCI-Paper-Reading
+
+# 安装基础依赖
+pip install -r requirements.txt
+
+# 安装 HunyuanOCR (推荐使用 vLLM)
+pip install vllm>=0.12.0
+```
+
+### 2. 部署 HunyuanOCR (可选但推荐)
+
+使用自动化脚本：
+```bash
+chmod +x scripts/setup_hunyuan_ocr.sh
+./scripts/setup_hunyuan_ocr.sh
+```
+
+或手动测试：
+```bash
+python3 scripts/test_hunyuan_simple.py
+```
+
+### 3. 运行审稿
+
+```python
+from src.pipeline import ReviewPipeline
+
+# 初始化审稿系统
+pipeline = ReviewPipeline()
+
+# 审稿 PDF 文件
+result = pipeline.review("manuscript.pdf")
+
+# 查看结果
+print(result.editor_report.to_markdown())
+print(result.author_report.to_markdown())
+```
+
+**系统要求**:
+- Python 3.12+
+- GPU 推荐（20GB 显存用于 OCR，非必须）
+- 6GB 磁盘空间（HunyuanOCR 模型）
+
 ## 🎯 系统定位 (System Purpose)
 
 本系统定位为医学学术期刊（特别是 SCI 收录期刊）的**"预审与辅助审稿（Pre-review）"**平台。核心任务是在稿件送交人类同行评议专家之前，进行自动化的、结构化的初步筛查。
