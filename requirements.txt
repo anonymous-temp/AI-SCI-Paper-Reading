@@ -10,6 +10,12 @@ pdf2image>=1.16.0
 Pillow>=10.0.0
 requests>=2.31.0
 
+# OCR - Local HunyuanOCR (open-source, recommended)
+vllm>=0.12.0  # High-performance inference for HunyuanOCR
+torch>=2.7.0  # PyTorch for model inference
+# Alternative transformers backend (if vLLM not available):
+# transformers @ git+https://github.com/huggingface/transformers@82a06db03535c49aa987719ed0746a76093b1ec4
+
 # LLM Integration
 openai>=1.0.0
 anthropic>=0.18.0

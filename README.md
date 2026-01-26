@@ -219,26 +219,78 @@ report = requests.get(f'http://localhost:8000/api/v1/review/{job_id}/report/auth
 print(report.json()['content'])
 ```
 
-### HunyuanOCR 增强功能
+### 🔥 HunyuanOCR 本地部署 (推荐)
 
-支持扫描版 PDF 和图片识别:
+系统默认使用**开源的 HunyuanOCR 模型**（1B 参数，SOTA 性能），支持扫描版 PDF 和多语言文档识别。
+
+#### 部署步骤
+
+**1. 安装依赖**
 
 ```bash
-# 配置 HunyuanOCR API
-export HUNYUAN_API_KEY="your-api-key"
+# 安装 vLLM（推荐，性能最佳）
+pip install vllm>=0.12.0
 
-# 使用 OCR 解析扫描版 PDF
-POST /api/v1/review/submit?use_ocr=true
+# 或使用 Transformers（备选方案）
+pip install git+https://github.com/huggingface/transformers@82a06db03535c49aa987719ed0746a76093b1ec4
+
+# 安装其他依赖
+pip install torch>=2.7.0 pdf2image Pillow
 ```
 
-或在代码中使用:
+**2. 下载模型**
+
+模型会在首次使用时自动从 Hugging Face 下载：
+```bash
+# 模型: tencent/HunyuanOCR (约 2GB)
+# 自动下载到: ~/.cache/huggingface/
+```
+
+**3. 系统要求**
+- GPU: 20GB 显存 (NVIDIA，支持 CUDA 12.9+)
+- CPU: 可运行但速度较慢
+- 磁盘: 6GB（模型权重）
+
+**4. 使用示例**
 
 ```python
-from src.services.ocr_parser import HunyuanOCRParser
+from src.services.local_hunyuan_ocr import LocalHunyuanOCRParser
 
-parser = HunyuanOCRParser(hunyuan_api_key="your-key")
+# 使用 vLLM 后端（推荐）
+parser = LocalHunyuanOCRParser(backend="vllm")
+
+# 或使用 Transformers 后端
+# parser = LocalHunyuanOCRParser(backend="transformers")
+
+# 解析扫描版 PDF
 text, metadata = parser.parse("scanned_paper.pdf")
+print(f"提取了 {metadata['total_pages']} 页，共 {metadata['total_characters']} 字符")
 ```
+
+**5. 性能指标**
+- OCRBench 评分: **860** (3B 参数以下模型第一)
+- OmniDocBench: **94.1** (复杂文档解析领先)
+- 支持语言: 100+ 种语言（单语言/混合语言）
+
+#### 备选：使用云端 API
+
+如果没有 GPU 资源，可使用云端 API：
+
+```python
+from src.services.ocr_parser import create_ocr_parser
+
+# 云端 API 模式
+parser = create_ocr_parser(
+    use_local=False,
+    api_endpoint="https://your-api-endpoint",
+    api_key="your-api-key"
+)
+```
+
+**参考资源**:
+- [GitHub 仓库](https://github.com/Tencent-Hunyuan/HunyuanOCR)
+- [Hugging Face 模型](https://huggingface.co/tencent/HunyuanOCR)
+- [官方网站](https://hunyuanocr.org/)
 
 ## 📚 支持的研究类型与 Checklist
 
